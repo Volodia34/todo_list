@@ -1,5 +1,61 @@
-$primary-color: #3498db;
-
+//$primary-color: #3498db;
+//
 body {
-  background-color: $primary-color;
+  //margin: 50px;
+  text-align: center;
+  background-color: gainsboro;
+
+}
+
+header {
+  display: flex;
+  padding: 0 30px;
+  justify-content: space-between;
+  background-color: dodgerblue;
+  height: 60px;
+
+  p {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+  }
+}
+
+.header__button {
+  button {
+    margin:10px 22px 5px 5px;
+  }
+}
+
+h1 {
+  font-size: 50px;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+#outlined-basic {
+}
+
+.button {
+  margin: 40px 0;
+}
+.MuiPaper-root {
+  margin: 20px auto;
+  max-width: 1300px;
+}
+.flex {
+  display: flex;
+  justify-content: center;
+}
+
+.board {
+  width: 370px;
+  height: 900px;
+  background-color: darkgray;
+  margin: 20px;
+}
+.card{
+  display: inline-block;
 }
