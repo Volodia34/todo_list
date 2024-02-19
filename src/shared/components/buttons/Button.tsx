@@ -3,9 +3,9 @@ import {Button} from "@mui/material";
 import {ButtonInterface} from "./inteface/button.interface";
 
 
-const TodoButton: React.FC<ButtonInterface> = ({children,click}) => {
+const TodoButton: React.FC<ButtonInterface> = ({children,click,size,variant}) => {
     return (
-        <Button variant="contained" onClick={click} style={{margin: '10px'}}>{children}</Button>
+        <Button variant={variant} size={size} onClick={click} className='button'>{children}</Button>
 
     );
 };
