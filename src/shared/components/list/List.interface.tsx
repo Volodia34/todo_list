@@ -1,6 +1,6 @@
-export interface CardProps {
+export interface ListProps {
+    title: string
     text: string
-    index:number
     delite: () => void
     edit: () => void
 }
