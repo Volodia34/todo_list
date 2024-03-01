@@ -1,5 +1,6 @@
 export interface CardProps {
-    text: string
+    taskName: string
+    descripton: string
     index:number
     delite: () => void
     edit: () => void

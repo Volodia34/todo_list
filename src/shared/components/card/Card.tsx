@@ -1,8 +1,9 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {CardProps} from "./Card.interface";
 
 
-const Card: FC<CardProps> = ({ text,index,delite,edit}) => {
+const Card: FC<CardProps> = ({ taskName,descripton,index,delite,edit}) => {
+
     const colors = [
         {
             primaryColor : "#5D93E1",
@@ -30,17 +31,18 @@ const Card: FC<CardProps> = ({ text,index,delite,edit}) => {
         <div className='card'>
             <div className="card-top" style={{backgroundColor: colors[index % 5].primaryColor}}></div>
             <div className="card-header" style={{backgroundColor: colors[index % 5].secondaryColor}}>
-                <p className='card-title'>{text}</p>
+                <p className='card-title'>{taskName}</p>
             </div>
-            <p className='card-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus,
-                voluptate.</p>
+            <p className='card-description'>{descripton}</p>
 
             <div className='card-butons'>
-                <i className="far fa-edit mr-3" style={{"color": colors[index % 5].primaryColor, "cursor": "pointer", marginRight: '15px'}}></i>
-                <i className="fas fa-trash-alt" style={{"color": colors[index % 5].primaryColor, "cursor": "pointer"}}></i>
+                <i className="far fa-edit mr-3" style={{"color": colors[index % 5].primaryColor, "cursor": "pointer", marginRight: '15px'}} onClick={edit}></i>
+                <i className="fas fa-trash-alt" style={{"color": colors[index % 5].primaryColor, "cursor": "pointer"}} onClick={delite}></i>
             </div>
 
+
         </div>
+
 
     );
 };

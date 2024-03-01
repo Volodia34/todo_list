@@ -1,13 +1,14 @@
 import React from 'react';
 import TodoButton from "../shared/components/buttons/Button";
+import {Link} from "react-router-dom";
 
 const Header = () => {
     return (
         <header>
-            <p>Todo-list</p>
+            <Link to='/todoList-form'><p>Todo-list</p></Link>
             <div className='header__button'>
-                <TodoButton variant='text' size='large' click={() => undefined }>Sign In</TodoButton>
-                <TodoButton variant='text' size='large' click={() => undefined }>Sign Up</TodoButton>
+                <Link to='/login'><TodoButton variant='text' size='large' click={() => undefined }>Sign In</TodoButton></Link>
+                <Link to='/register'><TodoButton variant='text' size='large' click={() => undefined }>Sign Up</TodoButton></Link>
             </div>
         </header>
     );

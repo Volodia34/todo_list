@@ -1,12 +1,18 @@
 import React from 'react';
-import {TextField} from "@mui/material";
 import TodoButton from "./buttons/Button";
 
-const Section = () => {
+interface SectionProps {
+ click: () => void
+}
+
+const Section: React.FC<SectionProps> = ({click}) => {
+
+
+
     return (
         <section className='section'>
             <h1 className='h1'>TODOS</h1>
-            <TodoButton click={() => undefined} variant='contained' size='large'>Create</TodoButton>
+            <TodoButton click={click} variant='contained' size='large'>Create</TodoButton>
         </section>
     );
 };

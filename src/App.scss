@@ -87,10 +87,9 @@ h2 {
   flex-wrap: wrap;
 }
 .card {
-
   width: 300px;
   height: 200px;
-  margin: 30px auto;
+  margin: 30px 15px;
   text-align: center;
   box-shadow: 0 3px 50px #A5A5A5;
 
@@ -125,4 +124,46 @@ h2 {
     top: 20px;
   }
 
+}
+
+
+.form-title {
+  text-align: left;
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0;
+
+
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+
+
+  .form-input {
+    margin: 10px 0;
+    width: 450px;
+    height: 40px;
+    border: 1px solid  #A5A5A5;
+  }
+
+  .form-textarea {
+    margin: 10px 0;
+    height: 130px;
+    border: 1px solid  #A5A5A5;
+
+  }
+
+
+}
+.form-buttons {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+}
+
+
+.authentication-from {
+  margin-top:250px;
 }
