@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from "axios";
 import toast from "react-hot-toast";
 import {useNavigate} from "react-router";
@@ -6,10 +5,8 @@ import {useNavigate} from "react-router";
 const useAuth = () => {
     const navigate = useNavigate();
     const signIn = async (form: object) => {
-
         try {
            const response = await axios.post('http://localhost:5000/api/auth/register', form)
-
             toast.success('Successfully toasted!')
             setTimeout(() => {
                 navigate('/login')

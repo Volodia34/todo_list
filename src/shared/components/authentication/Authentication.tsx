@@ -1,49 +1,59 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Button, TextField} from "@mui/material";
 import Header from "../../../components/Header";
-import {useNavigate} from "react-router";
-import {useLocalStorage} from "../../hooks/Storage";
-import toast,{Toaster} from "react-hot-toast";
-import useAuth from "../../hooks/auth";
+import {Toaster} from "react-hot-toast";
+import useFetch from "../../hooks/useFetch";
 
 interface AuthenticationProps {
-    register: boolean
+    register: boolean;
+    onLoginSuccess?: () => void; // робимо onLoginSuccess необов'язковим
 }
-
 const Authentication: FC<AuthenticationProps> = ({ register }) => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [emailError, setEmailError] = useState<string>('');
     const [passwordError, setPasswordError] = useState<string>('');
-    const {signIn,logIn} = useAuth()
+    const [serverError, setServerError] = useState<string>('');
 
-    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setEmail(value);
+    const [isLoading, response, error, doFetch] = useFetch(register ? '/api/auth/register' : '/api/auth/login');
 
-        if (value.length === 0) {
-            setEmailError('Email is required');
-        } else if (!/\S+@\S+\.\S+/.test(value)) {
-            setEmailError('Invalid email format');
-        } else {
-            setEmailError('');
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = event.target;
+        if (id === "email") {
+            setEmail(value);
+            setEmailError(prevState => {
+                if (value.length === 0) {
+                    return 'Email is required';
+                } else if (!/\S+@\S+\.\S+/.test(value)) {
+                    return 'Invalid email format';
+                }
+                return '';
+            });
+        } else if (id === "password") {
+            setPassword(value);
+            setPasswordError(value.length >= 6 ? '' : 'Password must be at least 6 characters');
         }
     };
-    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setPassword(value);
-        setPasswordError(value.length >= 6 ? '' : 'Password must be at least 6 characters');
-    };
-
 
     const handleSubmit = () => {
-        if(register) {
-            signIn({email: email,password: password})
-        }else  {
-            logIn({email: email,password: password})
-        }
+        const endpoint = register ? '/login' : '/todoList-form';
+        doFetch({
+            method: 'post',
+            data: {
+                email: email,
+                password: password
+            }
+        }, endpoint);
+    };
 
-    }
+    useEffect(() => {
+        if (error) {
+            setServerError(error.message); // Ваш серверный error обычно содержит поле message, где находится текст ошибки
+            console.log(error.message)
+        } else {
+            setServerError('');
+        }
+    }, [error]);
 
     return (
         <>
@@ -55,11 +65,11 @@ const Authentication: FC<AuthenticationProps> = ({ register }) => {
                         id="email"
                         label="Your email"
                         variant="standard"
-                        error={!!emailError}
-                        helperText={emailError}
+                        error={!!emailError || !!serverError}
+                        helperText={emailError || serverError || ''}
                         style={{ width: '350px', height: '70px' }}
                         value={email}
-                        onChange={handleEmailChange}
+                        onChange={handleInputChange}
                     />
                 </div>
                 <div>
@@ -68,11 +78,11 @@ const Authentication: FC<AuthenticationProps> = ({ register }) => {
                         type="password"
                         label="Your password"
                         variant="standard"
-                        error={!!passwordError}
-                        helperText={passwordError}
+                        error={!!passwordError || !!serverError}
+                        helperText={passwordError || serverError || ''}
                         style={{ width: '350px', height: '80px' }}
                         value={password}
-                        onChange={handlePasswordChange}
+                        onChange={handleInputChange}
                     />
                 </div>
                 <div>
@@ -80,7 +90,7 @@ const Authentication: FC<AuthenticationProps> = ({ register }) => {
                         variant="contained"
                         size='medium'
                         onClick={handleSubmit}
-                        disabled={!email || !password || !!emailError || !!passwordError}
+                        disabled={!email || !password || !!emailError || !!passwordError || isLoading}
                     >
                         Submit
                     </Button>

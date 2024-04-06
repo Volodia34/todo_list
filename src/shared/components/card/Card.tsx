@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import {CardProps} from "./Card.interface";
 
 
@@ -27,6 +27,18 @@ const Card: FC<CardProps> = ({ taskName,descripton,index,delite,edit}) => {
         }
     ]
 
+    const handleEditClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        e.preventDefault()
+        edit();
+    };
+
+    const handleDeleteClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        e.preventDefault()
+        delite();
+    };
+
     return (
         <div className='card'>
             <div className="card-top" style={{backgroundColor: colors[index % 5].primaryColor}}></div>
@@ -36,8 +48,8 @@ const Card: FC<CardProps> = ({ taskName,descripton,index,delite,edit}) => {
             <p className='card-description'>{descripton}</p>
 
             <div className='card-butons'>
-                <i className="far fa-edit mr-3" style={{"color": colors[index % 5].primaryColor, "cursor": "pointer", marginRight: '15px'}} onClick={edit}></i>
-                <i className="fas fa-trash-alt" style={{"color": colors[index % 5].primaryColor, "cursor": "pointer"}} onClick={delite}></i>
+                <i className="far fa-edit mr-3" style={{"color": colors[index % 5].primaryColor, "cursor": "pointer", marginRight: '15px'}} onClick={handleEditClick}></i>
+                <i className="fas fa-trash-alt" style={{"color": colors[index % 5].primaryColor, "cursor": "pointer"}} onClick={handleDeleteClick}></i>
             </div>
 
 

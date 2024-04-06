@@ -8,7 +8,6 @@ interface SectionProps {
 const Section: React.FC<SectionProps> = ({click}) => {
 
 
-
     return (
         <section className='section'>
             <h1 className='h1'>TODOS</h1>
